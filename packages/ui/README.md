@@ -58,6 +58,13 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Progress Bar | `Progress` | upstream |
 | Circular Progress Bar | `CircularProgress` | upstream |
 | Skeleton Circle / Square / Rectangle / Line, Skeleton Component | `Skeleton` | upstream |
+| Link | `Link` | upstream |
+| Breadcrumb | `Breadcrumb` + `BreadcrumbList` / `Item` / `Link` / `Page` / `Separator` / `EllipsisTrigger` | upstream |
+| Pagination | `Pagination` + `PaginationContent` / `Item` / `Link` / `Previous` / `Next` / `Overflow` | upstream |
+| Menu, Menu list item | `DropdownMenu` + `DropdownMenuItem` (`startIcon`, `trailing`) | upstream |
+| Content Switcher | `ContentSwitcher`, `ContentSwitcherItem` | upstream |
+| Progress Indicator (one step) | `Step` + `StepIndicator` / `StepContent` / `StepTitle` / `StepDescription`, inside `<ProgressIndicator orientation>` | upstream |
+| Slideout Menu, Slideout Menu Header | `SlideoutMenu` + `SlideoutMenuContent` / `Header` / `Body` / `Group` / `Item` / `Footer` | upstream |
 
 ### Known gaps (Figma property with no code equivalent yet)
 
@@ -67,6 +74,9 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Switch Label | `Trail switch` (switch after label) |
 | Dropdown Input | `Icon` (leading icon), `Clear` |
 | Horizontal Tab | `More Tab` overflow menu |
+| Slideout Menu | `Border`, `Scroll Bar` (drawing aids). Row trail `Button` / `Switch` are dropped: the row is already a `<button>` |
+| Menu, Slideout Menu | Figma draws only the open panel; snippets add a placeholder trigger button |
+| Pagination | Overflow snippet uses `onSelect={setPage}`; wire it to your page state |
 
 ## Spinner
 
