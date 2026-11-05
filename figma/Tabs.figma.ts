@@ -3,6 +3,9 @@
 // component=Tabs
 import figma from 'figma'
 const instance = figma.selectedInstance
+// Escape designer-entered text so snippets stay valid JSX.
+const attr = (s) => String(s).replace(/"/g, '&quot;')
+const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
 
 const size = instance.getEnum('Size', { Small: 'sm', Medium: 'md', Large: 'lg' })
 const flush = instance.getEnum('Flush', { True: true, False: false })
@@ -26,7 +29,7 @@ instance.findConnectedInstances((node) => {
 defaultValue = defaultValue || firstValue
 
 export default {
-  example: figma.code`<Tabs${size !== 'md' ? figma.code` size="${size}"` : ''}${defaultValue ? figma.code` defaultValue="${defaultValue}"` : ''}>
+  example: figma.code`<Tabs${size !== 'md' ? figma.code` size="${attr(size)}"` : ''}${defaultValue ? figma.code` defaultValue="${attr(defaultValue)}"` : ''}>
   <TabsList${flush ? ' flush' : ''}${divider ? '' : ' divider={false}'}>${triggers}
   </TabsList>
 </Tabs>`,

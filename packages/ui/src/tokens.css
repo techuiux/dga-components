@@ -91,6 +91,13 @@
   --dga-buttons-lg-padding: 16px;
   --dga-buttons-gap: 4px;
 
+  /* Form */
+  --dga-font-weight-regular: 400;
+  --dga-form-field-text-label: #161616;
+  --dga-form-field-border-error: #b42318;
+  --dga-form-label-gap: 4px;
+  --dga-input-text-disabled: #9da4ae;
+
   /* Tab: spacing */
   --dga-tab-button-gap: 4px;
   --dga-tab-indicator-thickness: 3px;

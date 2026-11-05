@@ -3,6 +3,9 @@
 // component=TabsTrigger
 import figma from 'figma'
 const instance = figma.selectedInstance
+// Escape designer-entered text so snippets stay valid JSX.
+const attr = (s) => String(s).replace(/"/g, '&quot;')
+const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
 
 const rtl = instance.getEnum('RTL', { True: true, False: false })
 const label = rtl ? instance.getString('Text AR') : instance.getString('Text EN')
@@ -29,7 +32,7 @@ if (hasIcon && iconSwap && iconSwap.type === 'INSTANCE') icon = iconSwap.execute
 export default {
   example: moreTab
     ? figma.code`{/* "More" overflow tab: not implemented in @techuiux/dga-ui yet */}`
-    : figma.code`<TabsTrigger value="${value}"${icon ? figma.code` icon={${icon}}` : ''}${disabled ? ' disabled' : ''}>${label}</TabsTrigger>`,
+    : figma.code`<TabsTrigger value="${attr(value)}"${icon ? figma.code` icon={${icon}}` : ''}${disabled ? ' disabled' : ''}>${child(label)}</TabsTrigger>`,
   imports: ['import { TabsTrigger } from "@techuiux/dga-ui"'],
   id: 'tabs-trigger',
   metadata: { nestable: true, props: { value, selected: selected ? 'true' : 'false' } },

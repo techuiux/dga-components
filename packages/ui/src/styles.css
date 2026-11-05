@@ -1,3 +1,6 @@
+/* Upstream styles first (includes its reset and --ddga-* tokens), local overrides last. */
+@import '@dev-dga/css';
 @import './tokens.css';
 @import './button/button.css';
 @import './tabs/tabs.css';
+@import './label/label.css';

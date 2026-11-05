@@ -3,6 +3,9 @@
 // component=Button
 import figma from 'figma'
 const instance = figma.selectedInstance
+// Escape designer-entered text so snippets stay valid JSX.
+const attr = (s) => String(s).replace(/"/g, '&quot;')
+const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
 
 // RTL only picks which label layer is live; direction comes from the page's `dir`.
 const rtl = instance.getEnum('RTL', { True: true, False: false })
@@ -50,9 +53,9 @@ if (trailSwap && trailSwap.type === 'INSTANCE') trailIcon = trailSwap.executeTem
 
 // Defaults (primary, md) are omitted to keep snippets short.
 const variantAttr = variant !== 'primary' ? figma.code`
-  variant="${variant}"` : ''
+  variant="${attr(variant)}"` : ''
 const sizeAttr = size !== 'md' ? figma.code`
-  size="${size}"` : ''
+  size="${attr(size)}"` : ''
 const flags = figma.code`${destructive ? figma.code`
   destructive` : ''}${onColor ? figma.code`
   onColor` : ''}${selected ? figma.code`
@@ -63,14 +66,14 @@ export default {
   example: iconOnly
     ? figma.code`<Button${variantAttr}${sizeAttr}${flags}
   iconOnly
-  aria-label="${label}"${leadIcon ? figma.code`
+  aria-label="${attr(label)}"${leadIcon ? figma.code`
   startIcon={${leadIcon}}` : ''}
 />`
     : figma.code`<Button${variantAttr}${sizeAttr}${flags}${hasLead && leadIcon ? figma.code`
   startIcon={${leadIcon}}` : ''}${hasTrail && trailIcon ? figma.code`
   endIcon={${trailIcon}}` : ''}
 >
-  ${label}
+  ${child(label)}
 </Button>`,
   imports: ['import { Button } from "@techuiux/dga-ui"'],
   id: 'button',
