@@ -29,5 +29,10 @@ export type { SpinnerProps, SpinnerSize } from './spinner/Spinner';
 export { Label } from './label/Label';
 export type { LabelProps } from './label/Label';
 
+export { CloseButton } from './close-button/CloseButton';
+export type { CloseButtonProps, CloseButtonSize } from './close-button/CloseButton';
+
+export { CloseIcon, ChevronDownIcon } from './icons/icons';
+
 export { DgaUiProvider } from './provider';
 export type { DgaUiProviderProps } from './provider';

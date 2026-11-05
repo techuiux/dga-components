@@ -7,7 +7,7 @@ Code Connect.
 It's a **hybrid**:
 
 - **Local components** where Figma needs something upstream lacks, built 1:1 from
-  the Figma tokens: `Button`, `Tabs`, `Label`, `Spinner`.
+  the Figma tokens: `Button`, `Tabs`, `Label`, `Spinner`, `CloseButton` (plus `CloseIcon`, `ChevronDownIcon`).
 - **Everything else re-exported from [`@dev-dga/react`](https://www.npmjs.com/package/@dev-dga/react)**
   unchanged. Upstream uses the same palette and radius as the Figma file, so mixed
   screens stay visually consistent.
@@ -64,6 +64,25 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Menu, Menu list item | `DropdownMenu` + `DropdownMenuItem` (`startIcon`, `trailing`) | upstream |
 | Content Switcher | `ContentSwitcher`, `ContentSwitcherItem` | upstream |
 | Progress Indicator (one step) | `Step` + `StepIndicator` / `StepContent` / `StepTitle` / `StepDescription`, inside `<ProgressIndicator orientation>` | upstream |
+| Accordion, Accordion list | `Accordion` + `AccordionItem` / `Trigger` / `Content` | upstream |
+| Avatar, Avatar Group | `Avatar` + `AvatarImage` / `AvatarFallback`, `AvatarGroup` | upstream |
+| Card | `Card` + `CardHeader` / `Title` / `Description` / `Footer` / `ExpandableContent` | upstream |
+| Chip | `Chip` | upstream |
+| Tag, Status Tag | `Tag`, `StatusTag` | upstream |
+| Divider | `Divider` | upstream |
+| List, List item | `List`, `ListItem` | upstream |
+| Structured List | `StructuredList` + parts (rows and cells read from the layers) | upstream |
+| Table | `Table` + parts (header, rows, cell types, sort state read from the layers) | upstream |
+| Quote | `Quote` | upstream |
+| Metric | `Metric`, `MetricChart` | upstream |
+| Rating | `Rating` (value counted from the stars) | upstream |
+| Digital Stamp | `DigitalStamp` | upstream |
+| Code Snippet | `CodeSnippet` | upstream |
+| Carousel | `Carousel` + `CarouselViewport` / `Slide` / `Dots` / `Previous` / `Next` | upstream |
+| Pie / Line / Bar Chart | `PieChart`, `LineChart`, `BarChart` (sample data) | upstream |
+| Floating Button | `FloatingButton` | upstream |
+| Button-menu | `Button` + `ChevronDownIcon` in a `DropdownMenuTrigger` | local |
+| Button-Close | `CloseButton` | local |
 | Slideout Menu, Slideout Menu Header | `SlideoutMenu` + `SlideoutMenuContent` / `Header` / `Body` / `Group` / `Item` / `Footer` | upstream |
 
 ### Known gaps (Figma property with no code equivalent yet)
@@ -76,7 +95,17 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Horizontal Tab | `More Tab` overflow menu |
 | Slideout Menu | `Border`, `Scroll Bar` (drawing aids). Row trail `Button` / `Switch` are dropped: the row is already a `<button>` |
 | Menu, Slideout Menu | Figma draws only the open panel; snippets add a placeholder trigger button |
+| Avatar Group | `Stacked=False` (upstream always overlaps) |
+| Charts | Figma charts are illustrations; snippets use sample `series` / `data` |
+| Code Snippet | Extra tabs: add more entries to `languages` |
 | Pagination | Overflow snippet uses `onSelect={setPage}`; wire it to your page state |
+
+## Publishing templates
+
+`.github/workflows/figma-code-connect.yml` runs `figma connect publish` on every merge to `main`
+that touches `figma/`. Add a Figma access token as the repo secret `FIGMA_ACCESS_TOKEN`
+(scopes: Code Connect write, File content read). After that, editing a template and merging is
+all it takes; no manual disconnects in Figma.
 
 ## Spinner
 
