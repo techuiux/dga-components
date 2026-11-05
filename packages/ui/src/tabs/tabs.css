@@ -1,0 +1,181 @@
+.dga-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--dga-font-family-text);
+}
+.dga-tabs[data-orientation='vertical'] {
+  flex-direction: row;
+}
+
+/* ---------- List ---------- */
+
+.dga-tabs__list {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.dga-tabs[data-orientation='vertical'] .dga-tabs__list {
+  flex-direction: column;
+}
+/* Figma "Divider" */
+.dga-tabs__list[data-divider]::after {
+  content: '';
+  position: absolute;
+  background-color: var(--dga-border-neutral-primary);
+  border-radius: var(--dga-radius-full);
+  pointer-events: none;
+}
+.dga-tabs[data-orientation='horizontal'] .dga-tabs__list[data-divider]::after {
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 1px;
+}
+.dga-tabs[data-orientation='vertical'] .dga-tabs__list[data-divider]::after {
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 1px;
+}
+/* Figma "Flush": pull the first tab back so its label meets the content edge */
+.dga-tabs__list[data-flush] .dga-tabs__trigger:first-child {
+  margin-inline-start: calc(-1 * var(--_pad-inline));
+}
+
+/* ---------- Trigger ---------- */
+
+.dga-tabs__trigger {
+  --_pad-inline: 16px;
+  --_pad-block: 12px;
+
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dga-tab-button-gap);
+  margin: 0;
+  padding: var(--_pad-block) var(--_pad-inline);
+  border: 0;
+  border-radius: var(--dga-radius-sm);
+  background: transparent;
+  color: var(--dga-text-primary-paragraph);
+  font: inherit;
+  font-size: var(--dga-typo-size-text-sm);
+  line-height: var(--dga-line-height-text-sm);
+  font-weight: var(--dga-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+/* Indicator: hidden by default, coloured per state */
+.dga-tabs__trigger::after {
+  content: '';
+  position: absolute;
+  border-radius: var(--dga-radius-full);
+  background-color: transparent;
+  pointer-events: none;
+}
+.dga-tabs[data-orientation='horizontal'] .dga-tabs__trigger::after {
+  inset-inline: var(--_pad-inline);
+  inset-block-end: 0;
+  block-size: var(--dga-tab-indicator-thickness);
+}
+.dga-tabs[data-orientation='vertical'] .dga-tabs__trigger::after {
+  inset-block: 8px;
+  inset-inline-start: 0;
+  inline-size: var(--dga-tab-indicator-thickness);
+}
+
+.dga-tabs__trigger:hover:not(:disabled) {
+  background-color: var(--dga-button-background-neutral-hovered);
+  color: var(--dga-text-default);
+}
+.dga-tabs__trigger:active:not(:disabled) {
+  background-color: var(--dga-button-background-neutral-pressed);
+  color: var(--dga-text-default);
+}
+.dga-tabs__trigger:is(:hover, :active):not(:disabled):not([aria-selected='true'])::after {
+  background-color: var(--dga-border-black);
+}
+
+.dga-tabs__trigger[aria-selected='true'] {
+  color: var(--dga-text-default);
+  font-weight: var(--dga-font-weight-bold);
+}
+.dga-tabs[data-orientation='vertical'] .dga-tabs__trigger[aria-selected='true'] {
+  font-weight: var(--dga-font-weight-semibold);
+}
+.dga-tabs__trigger[aria-selected='true']::after {
+  background-color: var(--dga-border-primary);
+}
+
+.dga-tabs__trigger:focus-visible {
+  outline: none;
+  border-radius: var(--dga-radius-xs);
+  box-shadow:
+    inset 0 0 0 2px var(--dga-border-black),
+    inset 0 0 0 3px var(--dga-border-white);
+}
+
+.dga-tabs__trigger:disabled {
+  color: var(--dga-text-default-disabled);
+  cursor: not-allowed;
+}
+.dga-tabs__trigger:disabled[aria-selected='true']::after {
+  background-color: var(--dga-border-disabled);
+}
+
+.dga-tabs__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.dga-tabs__icon > svg {
+  inline-size: 20px;
+  block-size: 20px;
+}
+
+/* ---------- Sizes: horizontal 36 / 44 / 52px, vertical 24 / 32 / 40px ---------- */
+
+.dga-tabs[data-orientation='horizontal'][data-size='sm'] .dga-tabs__trigger {
+  --_pad-block: 8px;
+  --_pad-inline: 12px;
+}
+.dga-tabs[data-orientation='horizontal'][data-size='lg'] .dga-tabs__trigger {
+  --_pad-block: 16px;
+}
+.dga-tabs[data-orientation='vertical'] .dga-tabs__trigger {
+  --_pad-block: 6px;
+  --_pad-inline: 12px;
+  justify-content: flex-start;
+}
+.dga-tabs[data-orientation='vertical'][data-size='sm'] .dga-tabs__trigger {
+  --_pad-block: 2px;
+  --_pad-inline: 8px;
+}
+.dga-tabs[data-orientation='vertical'][data-size='lg'] .dga-tabs__trigger {
+  --_pad-block: 10px;
+}
+
+/* ---------- Content ---------- */
+
+.dga-tabs__content:focus-visible {
+  outline: none;
+  border-radius: var(--dga-radius-sm);
+  box-shadow: 0 0 0 2px var(--dga-border-black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dga-tabs__trigger {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .dga-tabs__trigger[aria-selected='true']::after {
+    background-color: Highlight;
+  }
+  .dga-tabs__trigger:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

@@ -1,0 +1,97 @@
+/*
+ * DGA Platforms Code tokens, copied 1:1 from the Figma variables in
+ * "Components Library (18th September) - Platforms Code".
+ * Names follow the Figma variable path: Collection/name → --dga-collection-name.
+ */
+:root {
+  /* Font */
+  --dga-font-family-text: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --dga-font-weight-medium: 500;
+  --dga-font-weight-semibold: 600;
+  --dga-font-weight-bold: 700;
+  --dga-typo-size-text-xs: 12px;
+  --dga-typo-size-text-sm: 14px;
+  --dga-typo-size-text-md: 16px;
+  --dga-line-height-text-xs: 18px;
+  --dga-line-height-text-sm: 20px;
+  --dga-line-height-text-md: 24px;
+
+  /* Radius */
+  --dga-radius-xs: 2px;
+  --dga-radius-sm: 4px;
+  --dga-radius-full: 9999px;
+
+  /* Text / Icon */
+  --dga-text-default: #161616;
+  --dga-text-primary-paragraph: #384250;
+  --dga-text-oncolor-primary: #ffffff;
+  --dga-text-error: #b42318;
+  --dga-text-default-disabled: #9da4ae;
+  --dga-text-default-oncolor-disabled: #ffffff66;
+
+  /* Border */
+  --dga-border-black: #161616;
+  --dga-border-white: #ffffff;
+  --dga-border-white-40: #ffffff66;
+  --dga-border-primary: #1b8354;
+  --dga-border-neutral-primary: #d2d6db;
+  --dga-border-neutral-secondary: #e5e7eb;
+  --dga-border-error-light: #fecdca;
+  --dga-border-disabled: #9da4ae;
+
+  /* Global */
+  --dga-background-disabled: #e5e7eb;
+  --dga-button-background-disabled-on-color: #ffffff33;
+
+  /* Button: primary */
+  --dga-button-background-primary-default: #1b8354;
+  --dga-button-background-primary-hovered: #166a45;
+  --dga-button-background-primary-pressed: #104631;
+  --dga-button-background-primary-selected: #14573a;
+
+  /* Button: black (Figma style "Neutral") */
+  --dga-button-background-black-default: #0d121c;
+  --dga-button-background-black-hovered: #1f2a37;
+  --dga-button-background-black-pressed: #4d5761;
+  --dga-button-background-black-selected: #384250;
+
+  /* Button: neutral (Figma styles "Secondary-Solid", "Subtle" hover) */
+  --dga-button-background-neutral-default: #f3f4f6;
+  --dga-button-background-neutral-hovered: #f3f4f6;
+  --dga-button-background-neutral-pressed: #e5e7eb;
+  --dga-button-background-neutral-selected: #e5e7eb;
+
+  /* Button: on-color surfaces */
+  --dga-button-background-oncolor-default: #ffffff;
+  --dga-button-background-oncolor-hovered: #ffffffcc;
+  --dga-button-background-oncolor-pressed: #ffffff99;
+  --dga-button-background-oncolor-selected: #ffffffb2;
+  --dga-button-background-transparent-hovered: #ffffff33;
+  --dga-button-background-transparent-pressed: #ffffff66;
+  --dga-button-background-transparent-selected: #ffffff4d;
+  --dga-button-label-transparent-hovered-on-color: #54c08a;
+  --dga-button-label-transparent-pressed-on-color: #88d8ad;
+  --dga-button-label-transparent-selected-on-color: #54c08a;
+
+  /* Button: destructive */
+  --dga-button-background-danger-primary-default: #d92d20;
+  --dga-button-background-danger-primary-hovered: #b42318;
+  --dga-button-background-danger-primary-pressed: #7a271a;
+  --dga-button-background-danger-primary-selected: #912018;
+  --dga-button-background-danger-secondary-default: #fef3f2;
+  --dga-button-background-danger-secondary-hovered: #fee4e2;
+  --dga-button-background-danger-secondary-pressed: #fecdca;
+  --dga-button-label-danger-primary-default-oncolor: #fecdca;
+  --dga-button-label-danger-primary-hovered-oncolor: #fda29b;
+  --dga-button-label-danger-primary-pressed-oncolor: #f97066;
+
+  /* Button: spacing */
+  --dga-buttons-sm-padding: 8px;
+  --dga-buttons-md-padding: 12px;
+  --dga-buttons-lg-padding: 16px;
+  --dga-buttons-gap: 4px;
+
+  /* Tab: spacing */
+  --dga-tab-button-gap: 4px;
+  --dga-tab-indicator-thickness: 3px;
+}
