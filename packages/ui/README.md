@@ -7,7 +7,7 @@ Code Connect.
 It's a **hybrid**:
 
 - **Local components** where Figma needs something upstream lacks, built 1:1 from
-  the Figma tokens: `Button`, `Tabs`, `Label`.
+  the Figma tokens: `Button`, `Tabs`, `Label`, `Spinner`.
 - **Everything else re-exported from [`@dev-dga/react`](https://www.npmjs.com/package/@dev-dga/react)**
   unchanged. Upstream uses the same palette and radius as the Figma file, so mixed
   screens stay visually consistent.
@@ -48,6 +48,16 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Dropdown Input, Dropdown List Item | `Dropdown`, `DropdownItem`, `DropdownGroup` | upstream |
 | Number Input | `NumberInput` | upstream |
 | Search Box | `SearchBox` | upstream |
+| Inline Alert | `InlineAlert`, `InlineAlertAction` | upstream |
+| Notification | `Notification` | upstream |
+| Notification Toast | `toast()` + `<NotificationToast />` at the app root | upstream |
+| Tooltip | `Tooltip`, `TooltipTrigger`, `TooltipContent` | upstream |
+| Help Icon | `HelpIcon` | upstream |
+| Modal | `Modal` + `ModalContent` / `Header` / `Title` / `Body` / `Footer` | upstream |
+| Loading | `Spinner` (Figma's 7 sizes, 20 to 44px) | local wrapper |
+| Progress Bar | `Progress` | upstream |
+| Circular Progress Bar | `CircularProgress` | upstream |
+| Skeleton Circle / Square / Rectangle / Line, Skeleton Component | `Skeleton` | upstream |
 
 ### Known gaps (Figma property with no code equivalent yet)
 
@@ -57,6 +67,17 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Switch Label | `Trail switch` (switch after label) |
 | Dropdown Input | `Icon` (leading icon), `Clear` |
 | Horizontal Tab | `More Tab` overflow menu |
+
+## Spinner
+
+Figma's Loading has seven sizes; upstream has four. The local wrapper keeps
+upstream's styling and animation and sizes it exactly:
+
+| Figma Size | `size` | px |
+|---|---|---|
+| xx Small · x Small · Small | `xxs` · `xs` · `sm` | 20 · 24 · 28 |
+| Medium | `md` (default) | 32 |
+| Large · x Large · xx Large | `lg` · `xl` · `xxl` | 36 · 40 · 44 |
 
 ## Button
 

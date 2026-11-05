@@ -23,6 +23,9 @@ export type {
   TabsOrientation,
 } from './tabs/Tabs';
 
+export { Spinner } from './spinner/Spinner';
+export type { SpinnerProps, SpinnerSize } from './spinner/Spinner';
+
 export { Label } from './label/Label';
 export type { LabelProps } from './label/Label';
 

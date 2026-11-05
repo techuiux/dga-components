@@ -69,7 +69,9 @@ export default {
   aria-label="${attr(label)}"${leadIcon ? figma.code`
   startIcon={${leadIcon}}` : ''}
 />`
-    : figma.code`<Button${variantAttr}${sizeAttr}${flags}${hasLead && leadIcon ? figma.code`
+    : !variantAttr && !sizeAttr && !destructive && !onColor && !selected && !disabled && !(hasLead && leadIcon) && !(hasTrail && trailIcon)
+      ? figma.code`<Button>${child(label)}</Button>` // nothing to configure: keep it on one line
+      : figma.code`<Button${variantAttr}${sizeAttr}${flags}${hasLead && leadIcon ? figma.code`
   startIcon={${leadIcon}}` : ''}${hasTrail && trailIcon ? figma.code`
   endIcon={${trailIcon}}` : ''}
 >
