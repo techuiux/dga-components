@@ -1,0 +1,241 @@
+/*
+ * Each variant only sets --_bg / --_fg / --_border for its five states;
+ * the base rule wires those into hover, active, selected and disabled.
+ */
+.dga-button {
+  --_bg: transparent;
+  --_bg-hover: var(--_bg);
+  --_bg-active: var(--_bg-hover);
+  --_bg-selected: var(--_bg-active);
+  --_fg: var(--dga-text-default);
+  --_fg-hover: var(--_fg);
+  --_fg-active: var(--_fg-hover);
+  --_fg-selected: var(--_fg-active);
+  --_border: transparent;
+  --_bg-disabled: transparent;
+  --_fg-disabled: var(--dga-text-default-disabled);
+  --_border-disabled: transparent;
+  --_ring: var(--dga-border-black);
+  --_ring-gap: var(--dga-border-white);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dga-buttons-md-gap);
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid var(--_border);
+  border-radius: var(--dga-radius-sm);
+  background-color: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--dga-font-family-text);
+  font-weight: var(--dga-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.dga-button:hover {
+  background-color: var(--_bg-hover);
+  color: var(--_fg-hover);
+}
+.dga-button:active {
+  background-color: var(--_bg-active);
+  color: var(--_fg-active);
+}
+.dga-button[aria-pressed='true'] {
+  background-color: var(--_bg-selected);
+  color: var(--_fg-selected);
+}
+.dga-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 1px var(--_ring-gap),
+    0 0 0 3px var(--_ring);
+}
+.dga-button:disabled {
+  background-color: var(--_bg-disabled);
+  color: var(--_fg-disabled);
+  border-color: var(--_border-disabled);
+  cursor: not-allowed;
+}
+
+/* Sizes: 24 / 32 / 40px tall (Figma Small / Medium / Large) */
+.dga-button[data-size='sm'] {
+  block-size: 24px;
+  padding-inline: var(--dga-buttons-sm-padding);
+  font-size: var(--dga-typo-size-text-xs);
+  line-height: var(--dga-line-heights-text-xs);
+}
+.dga-button[data-size='md'] {
+  block-size: 32px;
+  padding-inline: var(--dga-buttons-md-padding);
+  font-size: var(--dga-typo-size-text-sm);
+  line-height: var(--dga-line-heights-text-sm);
+}
+.dga-button[data-size='lg'] {
+  block-size: 40px;
+  padding-inline: var(--dga-buttons-lg-padding);
+  font-size: var(--dga-typo-size-text-md);
+  line-height: var(--dga-line-heights-text-md);
+}
+.dga-button[data-icon-only] {
+  aspect-ratio: 1;
+  padding: 0;
+}
+
+.dga-button__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.dga-button__icon > svg {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+}
+.dga-button[data-size='sm'] .dga-button__icon > svg {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+/* ---------- Default surface ---------- */
+
+/* Solid fills share one disabled treatment */
+.dga-button:is([data-variant='primary'], [data-variant='neutral'], [data-variant='secondary-solid']) {
+  --_bg-disabled: var(--dga-background-disabled);
+}
+
+.dga-button[data-variant='primary'] {
+  --_bg: var(--dga-button-background-primary-default);
+  --_bg-hover: var(--dga-button-background-primary-hovered);
+  --_bg-active: var(--dga-button-background-primary-pressed);
+  --_bg-selected: var(--dga-button-background-primary-selected);
+  --_fg: var(--dga-text-oncolor-primary);
+}
+.dga-button[data-variant='neutral'] {
+  --_bg: var(--dga-button-background-black-default);
+  --_bg-hover: var(--dga-button-background-black-hovered);
+  --_bg-active: var(--dga-button-background-black-pressed);
+  --_bg-selected: var(--dga-button-background-black-selected);
+  --_fg: var(--dga-text-oncolor-primary);
+}
+.dga-button[data-variant='secondary-solid'] {
+  --_bg: var(--dga-button-background-neutral-default);
+  --_bg-hover: var(--dga-button-background-neutral-hovered);
+  --_bg-active: var(--dga-button-background-neutral-pressed);
+  --_bg-selected: var(--dga-button-background-neutral-selected);
+}
+.dga-button[data-variant='secondary-outline'] {
+  --_border: var(--dga-border-neutral-primary);
+  --_bg-hover: var(--dga-button-background-neutral-default);
+  --_bg-active: var(--dga-button-background-neutral-pressed);
+  --_bg-selected: var(--dga-button-background-neutral-selected);
+  --_border-disabled: var(--dga-border-neutral-secondary);
+}
+.dga-button[data-variant='subtle'] {
+  --_bg-hover: var(--dga-button-background-neutral-default);
+  --_bg-active: var(--dga-button-background-neutral-pressed);
+  --_bg-selected: var(--dga-button-background-neutral-selected);
+}
+/* Transparent: never fills, only the label changes colour */
+.dga-button[data-variant='transparent'] {
+  --_fg-hover: var(--dga-button-background-primary-hovered);
+  --_fg-active: var(--dga-button-background-primary-pressed);
+  --_fg-selected: var(--dga-button-background-primary-selected);
+}
+
+/* ---------- Destructive ---------- */
+
+.dga-button[data-destructive][data-variant='primary'] {
+  --_bg: var(--dga-button-background-danger-primary-default);
+  --_bg-hover: var(--dga-button-background-danger-primary-hovered);
+  --_bg-active: var(--dga-button-background-danger-primary-pressed);
+  --_bg-selected: var(--dga-button-background-danger-primary-selected);
+}
+.dga-button[data-destructive][data-variant='secondary-solid'] {
+  --_bg: var(--dga-button-background-danger-secondary-default);
+  --_bg-hover: var(--dga-button-background-danger-secondary-hovered);
+  --_bg-active: var(--dga-button-background-danger-secondary-pressed);
+  --_bg-selected: var(--dga-button-background-danger-secondary-pressed);
+  --_fg: var(--dga-text-error);
+}
+.dga-button[data-destructive][data-variant='secondary-outline'] {
+  --_border: var(--dga-border-error-light);
+  --_bg-hover: var(--dga-button-background-danger-secondary-default);
+  --_bg-active: var(--dga-button-background-danger-secondary-hovered);
+  --_bg-selected: var(--dga-button-background-danger-secondary-hovered);
+  --_fg: var(--dga-text-error);
+}
+.dga-button[data-destructive][data-variant='subtle'] {
+  --_bg-hover: var(--dga-button-background-danger-secondary-default);
+  --_bg-active: var(--dga-button-background-danger-secondary-hovered);
+  --_bg-selected: var(--dga-button-background-danger-secondary-hovered);
+  --_fg: var(--dga-text-error);
+}
+.dga-button[data-destructive][data-variant='transparent'] {
+  --_fg: var(--dga-button-background-danger-primary-default);
+  --_fg-hover: var(--dga-button-background-danger-primary-hovered);
+  --_fg-active: var(--dga-button-background-danger-primary-pressed);
+  --_fg-selected: var(--dga-button-background-danger-primary-selected);
+}
+
+/* ---------- On-color surface ---------- */
+
+.dga-button[data-on-color] {
+  --_ring: var(--dga-border-white);
+  --_ring-gap: var(--dga-border-black);
+  --_fg-disabled: var(--dga-text-default-oncolor-disabled);
+}
+.dga-button[data-on-color]:is([data-variant='primary'], [data-variant='neutral']):not([data-destructive]) {
+  --_bg: var(--dga-button-background-oncolor-default);
+  --_bg-hover: var(--dga-button-background-oncolor-hovered);
+  --_bg-active: var(--dga-button-background-oncolor-pressed);
+  --_bg-selected: var(--dga-button-background-oncolor-selected);
+  --_fg: var(--dga-text-default);
+  --_bg-disabled: var(--dga-button-background-disabled-on-color);
+}
+.dga-button[data-on-color]:is([data-variant='secondary-solid'], [data-variant='subtle'], [data-variant='secondary-outline']):not([data-destructive]) {
+  --_bg: transparent;
+  --_bg-hover: var(--dga-button-background-transparent-hovered);
+  --_bg-active: var(--dga-button-background-transparent-pressed);
+  --_bg-selected: var(--dga-button-background-transparent-selected);
+  --_fg: var(--dga-text-oncolor-primary);
+  --_bg-disabled: transparent;
+}
+.dga-button[data-on-color][data-variant='secondary-solid']:not([data-destructive]) {
+  --_bg: var(--dga-button-background-transparent-hovered);
+  --_bg-hover: var(--dga-button-background-transparent-pressed);
+  --_bg-disabled: var(--dga-button-background-disabled-on-color);
+}
+.dga-button[data-on-color][data-variant='secondary-outline']:not([data-destructive]) {
+  --_border: var(--dga-border-white-40);
+  --_border-disabled: var(--dga-button-background-disabled-on-color);
+}
+.dga-button[data-on-color][data-variant='transparent']:not([data-destructive]) {
+  --_fg: var(--dga-text-oncolor-primary);
+  --_fg-hover: var(--dga-button-label-transparent-hovered-on-color);
+  --_fg-active: var(--dga-button-label-transparent-pressed-on-color);
+  --_fg-selected: var(--dga-button-label-transparent-selected-on-color);
+}
+.dga-button[data-on-color][data-destructive][data-variant='transparent'] {
+  --_fg: var(--dga-button-label-danger-primary-default-oncolor);
+  --_fg-hover: var(--dga-button-label-danger-primary-hovered-oncolor);
+  --_fg-active: var(--dga-button-label-danger-primary-pressed-oncolor);
+  --_fg-selected: var(--dga-button-label-danger-primary-pressed-oncolor);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dga-button {
+    transition: none;
+  }
+}
+@media (forced-colors: active) {
+  .dga-button {
+    border-color: ButtonText;
+  }
+  .dga-button:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

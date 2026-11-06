@@ -31,3 +31,5 @@ next-env.d.ts
 
 /PRODUCT.md
 /DESIGN.md
+# Code Connect icon templates, regenerated in CI by scripts/figma-icons.mjs
+/figma/icons/generated/
