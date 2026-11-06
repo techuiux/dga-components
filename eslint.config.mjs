@@ -13,6 +13,8 @@ export default tseslint.config(
       'content/ar-meta.generated.ts',
       'next-env.d.ts',
       'internal/**',
+      'packages/ui/dist/**',
+      'packages/ui/node_modules/**',
     ],
   },
   js.configs.recommended,
