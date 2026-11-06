@@ -43,13 +43,14 @@ try {
 } catch {
   console.warn('@hugeicons/core-free-icons not installed: every icon will use the Pro packages');
 }
+const ORD = { '1st': 'first', '2nd': 'second', '3rd': 'third' }; // 1st-bracket -> FirstBracket
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
 const norm = (s) => s.toLowerCase().replace(/\+/g, 'plus').replace(/[^a-z0-9]/g, '');
 const freeByKey = new Map(free.map((k) => [norm(k.slice(0, -4)), k]));
 
 // Hugeicons spells standalone digits and a leading digit as words (3d-move -> ThreeDMove, tv-4-k -> TvFourK).
 function candidates(name) {
-  const parts = name.toLowerCase().replace(/\+/g, '-plus').split(/[^a-z0-9]+/).filter(Boolean);
+  const parts = name.toLowerCase().replace(/\+/g, '-plus').split(/[^a-z0-9]+/).filter(Boolean).map((p) => ORD[p] ?? p);
   const words = parts.map((p) => (/^[0-9]$/.test(p) ? WORDS[p] : p));
   const lead = (s) => s.replace(/^([0-9])/, (d) => WORDS[d]);
   const keys = [parts.join(''), lead(parts.join('')), words.join(''), lead(words.join(''))];
@@ -57,7 +58,7 @@ function candidates(name) {
   return [...new Set(keys)];
 }
 const pascal = (name) => {
-  const p = name.toLowerCase().replace(/\+/g, '-plus').split(/[^a-z0-9]+/).filter(Boolean).map((s) => s[0].toUpperCase() + s.slice(1)).join('');
+  const p = name.toLowerCase().replace(/\+/g, '-plus').split(/[^a-z0-9]+/).filter(Boolean).map((s) => ORD[s] ?? s).map((s) => s[0].toUpperCase() + s.slice(1)).join('');
   return (/^[0-9]/.test(p) ? WORDS[p[0]][0].toUpperCase() + WORDS[p[0]].slice(1) + p.slice(1) : p) + 'Icon';
 };
 function resolve(name) {
