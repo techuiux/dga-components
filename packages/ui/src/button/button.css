@@ -21,7 +21,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--dga-buttons-gap);
+  gap: var(--dga-buttons-md-gap);
   box-sizing: border-box;
   margin: 0;
   border: 1px solid var(--_border);
@@ -68,19 +68,19 @@
   block-size: 24px;
   padding-inline: var(--dga-buttons-sm-padding);
   font-size: var(--dga-typo-size-text-xs);
-  line-height: var(--dga-line-height-text-xs);
+  line-height: var(--dga-line-heights-text-xs);
 }
 .dga-button[data-size='md'] {
   block-size: 32px;
   padding-inline: var(--dga-buttons-md-padding);
   font-size: var(--dga-typo-size-text-sm);
-  line-height: var(--dga-line-height-text-sm);
+  line-height: var(--dga-line-heights-text-sm);
 }
 .dga-button[data-size='lg'] {
   block-size: 40px;
   padding-inline: var(--dga-buttons-lg-padding);
   font-size: var(--dga-typo-size-text-md);
-  line-height: var(--dga-line-height-text-md);
+  line-height: var(--dga-line-heights-text-md);
 }
 .dga-button[data-icon-only] {
   aspect-ratio: 1;

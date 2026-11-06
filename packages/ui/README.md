@@ -172,7 +172,31 @@ upstream's styling and animation and sizes it exactly:
 
 ## Tokens
 
-`src/tokens.css` holds the Figma variables used by local components, named after
-their Figma paths (`Button/button-background-primary-default` →
-`--dga-button-background-primary-default`). Upstream keeps its own `--ddga-*`
-tokens; values match.
+`src/tokens.css` holds **all 779 variables** from the Figma library
+*Foundations - Platforms Code*, every mode included. Each variable's **Web code
+syntax** in Figma is set to the same name, so Dev Mode shows
+`var(--dga-text-primary)` and that variable exists here.
+
+| Figma | CSS |
+|---|---|
+| Semantic variable | `--dga-` + its own name: `Text/text-primary` → `--dga-text-primary`, `Global/spacing-sm` → `--dga-spacing-sm` |
+| Primitive | keeps its group: `Colors/Neutral/400` → `--dga-color-neutral-400`, `Spacing/1․5 (6px)` → `--dga-space-1-5` |
+| Primitive that clashes with a semantic name | `base-` prefix: `--dga-base-font-weight-bold` |
+| Name clash with different values | `Global/border-disabled` → `--dga-global-border-disabled`, `Global/control-disabled` → `--dga-global-control-disabled` |
+| Typos in Figma names | fixed in CSS only: `-Ig` → `-lg`, `upcomming`, `boarder`, `lable`/`Iable`, `diabled`, `Lavendar`, `Hight`, `Wieght` |
+
+Modes:
+
+- **Themes**: Light on `:root`; Dark with `<html data-theme="dark">`. Set it on
+  `<html>`: semantic tokens alias other semantic tokens, and CSS resolves those
+  where they are declared.
+- **Spacing / Radius / Typography**: Desktop by default. Tablet (≤960px) and
+  Mobile (≤600px) apply only with `<html data-dga-responsive>`. They're opt-in
+  because Figma's Mobile type ramp takes `typo-size-text-xs` to 8px, too small
+  for controls such as Button `sm`.
+- Font weights are stored in Figma as style names (`Semibold`, `Bold italic`);
+  CSS gets the numeric weight, and italics need `font-style: italic`.
+
+To regenerate, re-run the export from Figma with the same naming rule and set
+code syntax again (both are in the PR description). Upstream keeps its own
+`--ddga-*` tokens.

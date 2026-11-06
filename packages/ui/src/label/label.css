@@ -1,25 +1,25 @@
 .dga-label {
   display: inline-flex;
   align-items: baseline;
-  gap: var(--dga-form-label-gap);
-  color: var(--dga-form-field-text-label);
+  gap: var(--dga-label-gap);
+  color: var(--dga-field-text-label);
   font-family: var(--dga-font-family-text);
   font-weight: var(--dga-font-weight-regular);
 }
 .dga-label[data-size='md'] {
   font-size: var(--dga-typo-size-text-sm);
-  line-height: var(--dga-line-height-text-sm);
+  line-height: var(--dga-line-heights-text-sm);
 }
 .dga-label[data-size='lg'] {
   font-size: var(--dga-typo-size-text-md);
-  line-height: var(--dga-line-height-text-md);
+  line-height: var(--dga-line-heights-text-md);
 }
 .dga-label[data-weight='semibold'] {
   font-weight: var(--dga-font-weight-semibold);
 }
 .dga-label[data-disabled] {
-  color: var(--dga-input-text-disabled);
+  color: var(--dga-text-default-disabled);
 }
 .dga-label__required {
-  color: var(--dga-form-field-border-error);
+  color: var(--dga-field-border-error);
 }

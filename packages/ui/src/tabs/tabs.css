@@ -60,7 +60,7 @@
   color: var(--dga-text-primary-paragraph);
   font: inherit;
   font-size: var(--dga-typo-size-text-sm);
-  line-height: var(--dga-line-height-text-sm);
+  line-height: var(--dga-line-heights-text-sm);
   font-weight: var(--dga-font-weight-medium);
   white-space: nowrap;
   cursor: pointer;
@@ -124,7 +124,7 @@
   cursor: not-allowed;
 }
 .dga-tabs__trigger:disabled[aria-selected='true']::after {
-  background-color: var(--dga-border-disabled);
+  background-color: var(--dga-global-border-disabled);
 }
 
 .dga-tabs__icon {
