@@ -31,6 +31,18 @@ export function App() {
 }
 ```
 
+Icons: the Figma snippets use Hugeicons (`@hugeicons/react` + `@hugeicons/core-free-icons`), installed with this
+package. Import them directly, as the snippets do:
+
+```tsx
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Home05Icon } from '@hugeicons/core-free-icons';
+
+<Button startIcon={<HugeiconsIcon icon={Home05Icon} />}>Home</Button>
+```
+
+Don't redraw icons as inline SVG or placeholders: every Figma icon maps to a Hugeicons export.
+
 Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabic`).
 
 ## Coverage

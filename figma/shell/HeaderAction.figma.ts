@@ -6,27 +6,33 @@ const instance = figma.selectedInstance
 // Escape designer-entered text so snippets stay valid JSX.
 const attr = (s) => String(s).replace(/"/g, '&quot;')
 const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
-// First / longest text layer inside a node (crosses nested instances).
-const texts = (node) => node.findLayers((n) => n.type === 'TEXT', { traverseInstances: true }).map((n) => n.textContent)
-const longest = (node) => texts(node).reduce((a, b) => (String(b).length > String(a).length ? b : a), '')
-// Code of the first connected icon-like instance inside this one, if any.
-const innerIcon = (node) => {
-  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect())[0]
+// Read a property from a nested (possibly unconnected) instance; undefined when absent.
+const pv = (node, name) => {
+  const v = node.getPropertyValue(name)
+  return v !== null && typeof v === 'object' ? undefined : v
+}
+// Icon code from an instance-swap property, when the icon is mapped (Icons library -> Hugeicons).
+const swapIcon = (node, name) => {
+  const s = node.getInstanceSwap(name)
+  return s && s.type === 'INSTANCE' && s.hasCodeConnect() ? s.executeTemplate().example : undefined
+}
+// First mapped icon nested in a node (for icon slots without a swap property).
+const iconIn = (node) => {
+  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect() && n.codeConnectId() === 'icon')[0]
   return i ? i.executeTemplate().example : undefined
 }
 
+const rtl = instance.getEnum('RTL', { True: true, False: false })
 const selected = instance.getEnum('Selected', { True: true, False: false })
 const disabled = instance.getEnum('State', { Default: false, Hovered: false, Pressed: false, Focused: false, Disabled: true })
 const top = instance.getEnum('Icon position', { Inline: false, Top: true })
 const iconOnly = instance.getEnum('Icon only', { True: true, False: false })
-const label = longest(instance)
-const icon = innerIcon(instance)
+const label = instance.getString(rtl ? 'Text AR' : 'Text EN')
+const icon = instance.getBoolean('Icon') ? swapIcon(instance, '🔁 Swap Icon') : undefined
 
-const attrs = figma.code`${icon ? figma.code` icon={${icon}}` : ''}${top ? ' iconPosition="top"' : ''}${selected ? ' selected' : ''}${disabled ? ' disabled' : ''}`
+// iconOnly keeps the label as the accessible name (visually hidden upstream).
 export default {
-  example: iconOnly
-    ? figma.code`<HeaderAction${attrs} iconOnly aria-label="${attr(label || 'Action')}" />`
-    : figma.code`<HeaderAction${attrs}>${child(label)}</HeaderAction>`,
+  example: figma.code`<HeaderAction${icon ? figma.code` icon={${icon}}` : ''}${top ? ' iconPosition="top"' : ''}${iconOnly ? ' iconOnly' : ''}${selected ? ' selected' : ''}${disabled ? ' disabled' : ''}>${child(label)}</HeaderAction>`,
   imports: ['import { HeaderAction } from "@techuiux/dga-ui"'],
   id: 'header-action',
   metadata: { nestable: true },

@@ -4,19 +4,30 @@
 import figma from 'figma'
 const instance = figma.selectedInstance
 // Escape designer-entered text so snippets stay valid JSX.
+const attr = (s) => String(s).replace(/"/g, '&quot;')
 const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
-// First / longest text layer inside a node (crosses nested instances).
-const texts = (node) => node.findLayers((n) => n.type === 'TEXT', { traverseInstances: true }).map((n) => n.textContent)
-const longest = (node) => texts(node).reduce((a, b) => (String(b).length > String(a).length ? b : a), '')
-// Code of the first connected icon-like instance inside this one, if any.
-const innerIcon = (node) => {
-  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect())[0]
+// Read a property from a nested (possibly unconnected) instance; undefined when absent.
+const pv = (node, name) => {
+  const v = node.getPropertyValue(name)
+  return v !== null && typeof v === 'object' ? undefined : v
+}
+// Icon code from an instance-swap property, when the icon is mapped (Icons library -> Hugeicons).
+const swapIcon = (node, name) => {
+  const s = node.getInstanceSwap(name)
+  return s && s.type === 'INSTANCE' && s.hasCodeConnect() ? s.executeTemplate().example : undefined
+}
+// First mapped icon nested in a node (for icon slots without a swap property).
+const iconIn = (node) => {
+  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect() && n.codeConnectId() === 'icon')[0]
   return i ? i.executeTemplate().example : undefined
 }
 
-const icon = innerIcon(instance)
+const rtl = instance.getEnum('RTL', { Yes: true, No: false })
+const label = instance.getString(rtl ? 'Text AR' : 'Text EN')
+const icon = swapIcon(instance, 'Swap icon ')
+
 export default {
-  example: figma.code`<SecondNavHeaderItem${icon ? figma.code` icon={${icon}}` : ''}>${child(longest(instance))}</SecondNavHeaderItem>`,
+  example: figma.code`<SecondNavHeaderItem${icon ? figma.code` icon={${icon}}` : ''}>${child(label)}</SecondNavHeaderItem>`,
   imports: ['import { SecondNavHeaderItem } from "@techuiux/dga-ui"'],
   id: 'second-nav-item',
   metadata: { nestable: true },

@@ -27,7 +27,7 @@ const moreTab = instance.getEnum('More Tab', { Yes: true, No: false })
 const hasIcon = instance.getBoolean('Icon')
 const iconSwap = instance.getInstanceSwap('🔁 Swap Icon')
 let icon
-if (hasIcon && iconSwap && iconSwap.type === 'INSTANCE') icon = iconSwap.executeTemplate().example
+if (hasIcon && iconSwap && iconSwap.type === 'INSTANCE' && iconSwap.hasCodeConnect()) icon = iconSwap.executeTemplate().example
 
 export default {
   example: moreTab

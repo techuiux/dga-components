@@ -55,14 +55,14 @@ if (instance.getBoolean('Prefix')) {
   usesAffix = true
 } else if (instance.getBoolean('Icon')) {
   const swap = instance.getInstanceSwap('🔁 Swap Icon')
-  if (swap && swap.type === 'INSTANCE') start = swap.executeTemplate().example
+  if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) start = swap.executeTemplate().example
 }
 const end = instance.getBoolean('Suffix') ? figma.code`<TextInputAffix>…</TextInputAffix>` : undefined
 if (end) usesAffix = true
 let helperIcon
 if (showHelper && !error) {
   const swap = instance.getInstanceSwap('🔁 Swap Helper Icon')
-  if (swap && swap.type === 'INSTANCE') helperIcon = swap.executeTemplate().example
+  if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) helperIcon = swap.executeTemplate().example
 }
 
 export default {

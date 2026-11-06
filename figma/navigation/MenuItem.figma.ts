@@ -35,7 +35,7 @@ const selected = instance.getEnum('State', {
 let startIcon
 if (instance.getBoolean('Lead Icon')) {
   const swap = instance.getInstanceSwap('🔁 Swap Lead icon')
-  if (swap && swap.type === 'INSTANCE') startIcon = swap.executeTemplate().example
+  if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) startIcon = swap.executeTemplate().example
 }
 
 // Figma "Trail element" maps to the `trailing` slot.
@@ -53,7 +53,7 @@ if (trail === 'text' && instance.getBoolean('Show Trail Text')) {
   trailing = figma.code` trailing="${attr(instance.getString('Trail Text'))}"`
 } else if (trail === 'icon') {
   const swap = instance.getInstanceSwap('🔁 Swap Trail Icon')
-  if (swap && swap.type === 'INSTANCE') trailing = figma.code` trailing={${swap.executeTemplate().example}}`
+  if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) trailing = figma.code` trailing={${swap.executeTemplate().example}}`
 } else if (trail === 'button' || trail === 'switch') {
   const node = instance.findInstance(trail === 'button' ? 'Button' : 'Switch')
   if (node.type === 'INSTANCE' && node.hasCodeConnect()) {

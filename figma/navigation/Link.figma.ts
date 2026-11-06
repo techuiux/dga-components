@@ -26,7 +26,7 @@ const disabled = instance.getEnum('State', {
 let icon
 if (instance.getBoolean('Icon')) {
   const swap = instance.getInstanceSwap('🔁 Swap Icon')
-  if (swap && swap.type === 'INSTANCE') icon = swap.executeTemplate().example
+  if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) icon = swap.executeTemplate().example
 }
 
 export default {

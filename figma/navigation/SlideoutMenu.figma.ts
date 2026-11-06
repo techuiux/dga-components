@@ -32,7 +32,7 @@ const itemCode = (node) => {
   let icon
   if (pv(node, 'Lead Icon') === true) {
     const swap = node.getInstanceSwap('🔁 Swap Lead icon')
-    if (swap && swap.type === 'INSTANCE') icon = swap.executeTemplate().example
+    if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) icon = swap.executeTemplate().example
   }
   let trailing = ''
   const trail = pv(node, 'Trail element')
@@ -40,7 +40,7 @@ const itemCode = (node) => {
     trailing = figma.code` trailing="${attr(pv(node, 'Trail Text') ?? '')}"`
   } else if (trail === 'Icon') {
     const swap = node.getInstanceSwap('🔁 Swap Trail Icon')
-    if (swap && swap.type === 'INSTANCE') trailing = figma.code` trailing={${swap.executeTemplate().example}}`
+    if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) trailing = figma.code` trailing={${swap.executeTemplate().example}}`
   } else if (trail === 'Tag') {
     const n = node.findInstance('Tag')
     if (n.type === 'INSTANCE' && n.hasCodeConnect()) trailing = figma.code` trailing={${n.executeTemplate().example}}`

@@ -48,8 +48,8 @@ const leadSwap = instance.getInstanceSwap('🔁 Swap Lead Icon')
 const trailSwap = instance.getInstanceSwap('🔁 Swap Trail Icon')
 let leadIcon
 let trailIcon
-if (leadSwap && leadSwap.type === 'INSTANCE') leadIcon = leadSwap.executeTemplate().example
-if (trailSwap && trailSwap.type === 'INSTANCE') trailIcon = trailSwap.executeTemplate().example
+if (leadSwap && leadSwap.type === 'INSTANCE' && leadSwap.hasCodeConnect()) leadIcon = leadSwap.executeTemplate().example
+if (trailSwap && trailSwap.type === 'INSTANCE' && trailSwap.hasCodeConnect()) trailIcon = trailSwap.executeTemplate().example
 
 // Defaults (primary, md) are omitted to keep snippets short.
 const variantAttr = variant !== 'primary' ? figma.code`

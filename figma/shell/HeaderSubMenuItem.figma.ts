@@ -6,20 +6,30 @@ const instance = figma.selectedInstance
 // Escape designer-entered text so snippets stay valid JSX.
 const attr = (s) => String(s).replace(/"/g, '&quot;')
 const child = (s) => (/[{}<>]/.test(String(s)) ? '{' + JSON.stringify(String(s)) + '}' : String(s))
-// First / longest text layer inside a node (crosses nested instances).
-const texts = (node) => node.findLayers((n) => n.type === 'TEXT', { traverseInstances: true }).map((n) => n.textContent)
-// Code of the first connected icon-like instance inside this one, if any.
-const innerIcon = (node) => {
-  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect())[0]
+// Read a property from a nested (possibly unconnected) instance; undefined when absent.
+const pv = (node, name) => {
+  const v = node.getPropertyValue(name)
+  return v !== null && typeof v === 'object' ? undefined : v
+}
+// Icon code from an instance-swap property, when the icon is mapped (Icons library -> Hugeicons).
+const swapIcon = (node, name) => {
+  const s = node.getInstanceSwap(name)
+  return s && s.type === 'INSTANCE' && s.hasCodeConnect() ? s.executeTemplate().example : undefined
+}
+// First mapped icon nested in a node (for icon slots without a swap property).
+const iconIn = (node) => {
+  const i = node.findLayers((n) => n.type === 'INSTANCE' && n.hasCodeConnect() && n.codeConnectId() === 'icon')[0]
   return i ? i.executeTemplate().example : undefined
 }
 
-// First text layer = label, second = description. "On-color" comes from the HeaderSubMenu background.
-const t = texts(instance).filter((s) => String(s).trim())
-const icon = innerIcon(instance)
+const rtl = instance.getEnum('RTL', { True: true, False: false })
+const label = instance.getString(rtl ? 'Lead Text AR' : 'Lead Text EN')
+const desc = instance.getBoolean('Helper Text') ? instance.getString(rtl ? 'Helper Text AR' : 'Helper Text EN') : undefined
+// The icon slot has no swap property: read the mapped icon inside. "On-color" follows the HeaderSubMenu background.
+const icon = instance.getBoolean('Icon') ? iconIn(instance) : undefined
 
 export default {
-  example: figma.code`<HeaderSubMenuItem href="#"${icon ? figma.code` icon={${icon}}` : ''}${t[1] !== undefined ? figma.code` description="${attr(t[1])}"` : ''}>${child(t[0] ?? '')}</HeaderSubMenuItem>`,
+  example: figma.code`<HeaderSubMenuItem href="#"${icon ? figma.code` icon={${icon}}` : ''}${desc !== undefined ? figma.code` description="${attr(desc)}"` : ''}>${child(label)}</HeaderSubMenuItem>`,
   imports: ['import { HeaderSubMenuItem } from "@techuiux/dga-ui"'],
   id: 'header-sub-menu-item',
   metadata: { nestable: true },

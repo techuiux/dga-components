@@ -19,7 +19,7 @@ if (instance.getBoolean('Show Featured icon')) {
   const featured = instance.findInstance('Featured icon')
   if (featured.type === 'INSTANCE') {
     const swap = featured.getInstanceSwap('🔀 Icon swap')
-    if (swap && swap.type === 'INSTANCE') icon = swap.executeTemplate().example
+    if (swap && swap.type === 'INSTANCE' && swap.hasCodeConnect()) icon = swap.executeTemplate().example
   }
 }
 
