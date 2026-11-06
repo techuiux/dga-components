@@ -1,4 +1,5 @@
 # Publishes the Code Connect templates in figma/ to the Figma library on every merge to main.
+# Uploads in batches: one 4,400-document request times out with a 504.
 # Setup: add a Figma personal access token (scopes: Code Connect write, File content read)
 # as the repository secret FIGMA_ACCESS_TOKEN.
 name: Figma Code Connect
@@ -28,6 +29,6 @@ jobs:
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
       - name: Publish templates
-        run: npx --yes @figma/code-connect@2 connect publish --skip-update-check
+        run: npx --yes @figma/code-connect@2 connect publish --skip-update-check --batch-size 200
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
