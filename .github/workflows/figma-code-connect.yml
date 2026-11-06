@@ -9,6 +9,7 @@ on:
     paths:
       - 'figma/**'
       - 'figma.config.json'
+      - 'scripts/figma-icons.mjs'
   workflow_dispatch:
 
 jobs:
@@ -20,6 +21,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Generate icon templates (Icons - Platforms Code -> Hugeicons)
+        run: |
+          npm install --prefix /tmp/icons --no-save --no-package-lock @hugeicons/core-free-icons@4
+          ICONS_NODE_MODULES=/tmp/icons node scripts/figma-icons.mjs
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
       - name: Publish templates
         run: npx --yes @figma/code-connect@2 connect publish --skip-update-check
         env:

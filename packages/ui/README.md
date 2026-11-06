@@ -125,6 +125,21 @@ that touches `figma/`. Add a Figma access token as the repo secret `FIGMA_ACCESS
 (scopes: Code Connect write, File content read). After that, editing a template and merging is
 all it takes; no manual disconnects in Figma.
 
+### Icons
+
+The 4,389 icons in *Icons - Platforms Code* map to [Hugeicons](https://hugeicons.com)
+(`arrow-down-01` → `<HugeiconsIcon icon={ArrowDown01Icon} />`). There's one template per
+icon, too many to keep in git, so `scripts/figma-icons.mjs` generates them into
+`figma/icons/generated/` (gitignored) and the workflow runs it before publishing.
+
+- Stroke + Rounded imports from `@hugeicons/core-free-icons` when the icon is there;
+  the other 8 Style × Type combinations import from `@hugeicons-pro/core-<style>-<type>`,
+  which needs a Hugeicons Pro licence.
+- The script prints icons it couldn't find in the free package (name guessed for Pro).
+- The MISC ICONS page (brand logos, flags, payment marks) is not mapped: no Hugeicons equivalent.
+- Every component that nests an icon (Button lead/trail icon, accordion chevron, menu rows)
+  picks it up automatically once published.
+
 ## Spinner
 
 Figma's Loading has seven sizes; upstream has four. The local wrapper keeps
