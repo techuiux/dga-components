@@ -81,6 +81,11 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Carousel | `Carousel` + `CarouselViewport` / `Slide` / `Dots` / `Previous` / `Next` | upstream |
 | Pie / Line / Bar Chart | `PieChart`, `LineChart`, `BarChart` (sample data) | upstream |
 | Floating Button | `FloatingButton` | upstream |
+| Date Picker | `DatePicker` / `DateRangePicker` (from `@dev-dga/react/date-picker`, re-exported here) | upstream |
+| File Upload / Single, File Upload / Multiple | `FileUpload` (`variant="button"` / `"dropzone"`) | upstream |
+| Filtration | `Filtration` + `FiltrationTrigger` / `Panel` / `Section` / `CheckboxFilter` | upstream |
+| Slider | `Slider` (single or range) | upstream |
+| Radial Stepper, Circular Stepper | `CircularProgress` with `segments` | upstream |
 | Button-menu | `Button` + `ChevronDownIcon` in a `DropdownMenuTrigger` | local |
 | Button-Close | `CloseButton` | local |
 | Slideout Menu, Slideout Menu Header | `SlideoutMenu` + `SlideoutMenuContent` / `Header` / `Body` / `Group` / `Item` / `Footer` | upstream |
@@ -98,6 +103,9 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Avatar Group | `Stacked=False` (upstream always overlaps) |
 | Charts | Figma charts are illustrations; snippets use sample `series` / `data` |
 | Code Snippet | Extra tabs: add more entries to `languages` |
+| Radial / Circular Stepper | 40px and 48px sizes render at the 64px `sm` size; `On-Color` has no code variant |
+| Filtration | `Placement` and `Result` are layout in Figma; snippet shows sample options |
+| Date Picker, File Upload | Snippets reference your own `files` / `addFiles` / `removeFile` state and sample labels |
 | Pagination | Overflow snippet uses `onSelect={setPage}`; wire it to your page state |
 
 ## Publishing templates

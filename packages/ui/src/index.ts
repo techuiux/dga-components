@@ -8,6 +8,9 @@
  * (standard ESM resolution), so consumers always get the local version.
  */
 export * from '@dev-dga/react';
+// Date pickers ship from a subpath upstream; surface them here so there is one import.
+export { DatePicker, DateRangePicker } from '@dev-dga/react/date-picker';
+export type { DatePickerProps, DateRangePickerProps, DateRange } from '@dev-dga/react/date-picker';
 
 // Local components (override upstream)
 export { Button } from './button/Button';
