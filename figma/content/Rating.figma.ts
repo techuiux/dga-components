@@ -14,7 +14,7 @@ const pv = (node, name) => {
 // Icon from an instance-swap property (undefined when the swap is empty).
 const swapIcon = (node, name) => {
   const s = node.getInstanceSwap(name)
-  return s && s.type === 'INSTANCE' ? s.executeTemplate().example : undefined
+  return s && s.type === 'INSTANCE' && s.hasCodeConnect() ? s.executeTemplate().example : undefined
 }
 
 // "Meduim" is the Figma spelling.

@@ -23,7 +23,7 @@ const selected = instance.getEnum('Selected', { True: true, False: false })
 const hasIcon = instance.getBoolean('Icon')
 const iconSwap = instance.getInstanceSwap('🔁 Swap Icon')
 let icon
-if (hasIcon && iconSwap && iconSwap.type === 'INSTANCE') icon = iconSwap.executeTemplate().example
+if (hasIcon && iconSwap && iconSwap.type === 'INSTANCE' && iconSwap.hasCodeConnect()) icon = iconSwap.executeTemplate().example
 
 export default {
   example: figma.code`<TabsTrigger value="${attr(value)}"${icon ? figma.code` icon={${icon}}` : ''}${disabled ? ' disabled' : ''}>${child(label)}</TabsTrigger>`,
