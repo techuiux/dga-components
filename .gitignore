@@ -33,3 +33,7 @@ next-env.d.ts
 /DESIGN.md
 # Code Connect icon templates, regenerated in CI by scripts/figma-icons.mjs
 /figma/icons/generated/
+
+# @techuiux/dga-ui build output and npm pack tarballs
+/packages/ui/dist/
+/packages/ui/*.tgz

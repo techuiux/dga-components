@@ -1,0 +1,48 @@
+# Publishes packages/ui (@techuiux/dga-ui) to npm when its version in package.json changes on main.
+# Setup: create an npm access token (Automation or Granular with publish rights on the
+# @techuiux scope) and add it as the repository secret NPM_TOKEN.
+# Release: bump "version" in packages/ui/package.json, merge to main.
+name: Publish @techuiux/dga-ui
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/ui/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # npm provenance: links each published version to this workflow run
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'techuiux/dga-components' }}
+    defaults:
+      run:
+        working-directory: packages/ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Skip if this version is already on npm
+        id: check
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "$NAME@$VERSION is already published; bump the version to release."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.check.outputs.publish == 'true'
+        run: npm ci
+      - if: steps.check.outputs.publish == 'true'
+        name: Publish (typecheck and build run in prepublishOnly)
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

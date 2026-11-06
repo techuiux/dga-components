@@ -15,6 +15,17 @@ It's a **hybrid**:
 Local exports shadow upstream ones with the same name, so swapping a component from
 upstream to local later never changes your imports or the Figma mappings.
 
+## Install
+
+```sh
+npm i @techuiux/dga-ui react react-dom
+# icons used in the Figma snippets
+npm i @hugeicons/react @hugeicons/core-free-icons
+```
+
+`@techuiux/dga-ui/styles.css` is one self-contained file (upstream `@dev-dga/css` + tokens +
+local components). For tokens only, import `@techuiux/dga-ui/tokens.css`.
+
 ## Setup
 
 ```tsx
@@ -117,6 +128,14 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Nav Drawer | `Background Color` has no `Sidebar` prop (theme with CSS); `On Color` follows the drawer |
 | Nav Header Sub-Menu | `Background`, `Link style`, `Full width` are panel presets; snippet references your `open` / `setOpen` state |
 | Item Icon | Not mapped: it is the icon slot inside header and drawer items |
+
+## Releasing to npm
+
+1. Bump `version` in `packages/ui/package.json` (semver: fix → patch, new component → minor).
+2. Merge to `main`. The *Publish @techuiux/dga-ui* workflow typechecks, builds and publishes
+   with npm provenance; it skips versions already on npm.
+
+Local build: `cd packages/ui && npm ci && npm run build` (outputs `dist/`).
 
 ## Publishing templates
 
