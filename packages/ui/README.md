@@ -89,6 +89,12 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Button-menu | `Button` + `ChevronDownIcon` in a `DropdownMenuTrigger` | local |
 | Button-Close | `CloseButton` | local |
 | Slideout Menu, Slideout Menu Header | `SlideoutMenu` + `SlideoutMenuContent` / `Header` / `Body` / `Group` / `Item` / `Footer` | upstream |
+| Nav Header, Header Menu Item, Header Action, Header Menu, Logo Placeholder | `Header` + `HeaderBrand` / `HeaderNav` / `HeaderActions`, `HeaderMenuItem`, `HeaderAction`, `HeaderMenuButton`, `LogoPlaceholder` | upstream |
+| Nav Header Sub-Menu, Header Sub-menu Item | `HeaderSubMenu` + `HeaderSubMenuGroup`, `HeaderSubMenuItem` | upstream |
+| Second Nav Header, sub-header-Item | `SecondNavHeader` + `SecondNavHeaderItems`, `SecondNavHeaderItem` | upstream |
+| Nav Drawer, Nav Drawer Item, Nav Drawer Header | `SidebarProvider` + `Sidebar` / `SidebarHeader` / `SidebarMenu` / `SidebarMenuButton` / `SidebarMenuSub*` / `SidebarSeparator` | upstream |
+| Footer | `Footer` + `FooterNav` / `Group` / `Links` / `Link` | upstream |
+| TOC, TOC Item | `<nav aria-label>` list of `Link`s (no TOC component upstream) | upstream `Link` |
 
 ### Known gaps (Figma property with no code equivalent yet)
 
@@ -107,6 +113,10 @@ Fonts: load IBM Plex Sans Arabic yourself (e.g. `@fontsource/ibm-plex-sans-arabi
 | Filtration | `Placement` and `Result` are layout in Figma; snippet shows sample options |
 | Date Picker, File Upload | Snippets reference your own `files` / `addFiles` / `removeFile` state and sample labels |
 | Pagination | Overflow snippet uses `onSelect={setPage}`; wire it to your page state |
+| Nav Header, Footer | `Breakpoint` is responsive in code; Footer link groups are sample content |
+| Nav Drawer | `Background Color` has no `Sidebar` prop (theme with CSS); `On Color` follows the drawer |
+| Nav Header Sub-Menu | `Background`, `Link style`, `Full width` are panel presets; snippet references your `open` / `setOpen` state |
+| Item Icon | Not mapped: it is the icon slot inside header and drawer items |
 
 ## Publishing templates
 
